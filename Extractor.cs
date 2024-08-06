@@ -6,75 +6,95 @@ namespace SupportBank;
 public class Extractor {
     public string FileName {get; set;}
 
-    private void GetDataFromFile() {
+    private List<string> GetDataFromFile() {
+        List<string> lines = new List<string>();
+
         try
         {
-            // Create an instance of StreamReader to read from a file.
-            // The using statement also closes the StreamReader.
             using (StreamReader sr = new StreamReader(FileName))
             {
                 string line;
-                // Read and display lines from the file until the end of
-                // the file is reached.
-                line = sr.ReadLine(); //skip the header line
-                int transactionCounter = 1;
-                int personCounter = 1;
-
-                Dictionary<int, string> people = new Dictionary<int, string>{};
                 
+                line = sr.ReadLine(); //skip the header line
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    // Console.WriteLine(line);
-                    string[] data = line.Split(",");
-
-                    Person fromPerson = new Person {
-                        Id = personCounter,
-                        Name = line[1]
-                    }
-
-                    if(!people.Contains(fromPerson)) {
-                        people.add(fromPerson);
-                        personCounter++;
-                    }
-
-                    Person toPerson = new Person {
-                        Id = personCounter,
-                        Name = line[2]
-                    }
-
-                    if(!people.Contains(toPerson)) {
-                        people.add(fromPerson);
-                        personCounter++;
-                    }
-
-                    Transaction transaction = new Transaction 
-                    {
-                        Id = transactionCounter, 
-                        Date = line[0], 
-                        Label = line[3], 
-                        Amount = line[4] 
-                    }
-
-                    count++;
+                    lines.Add(line);
                 }
             }
         }
         catch (Exception e)
         {
-            // Let the user know what went wrong.
             Console.WriteLine("The file could not be read:");
             Console.WriteLine(e.Message);
         }
+
+        return lines;
     }
 
-    public List<Person> ExtractPeople () {
-        List<Person> people = new List<Person>{};
-        return people;
-    }
+    public (List<Person>, List<Transaction>) ExtractData () {
+        List<Person> people = new List<Person> {};
+        List<Transaction> transactions = new List<Transaction> {};
+        
+        List<string> lines = GetDataFromFile();
 
-    public List<Transaction> ExtractTransactions () {
-        List<Transaction> transactions = new List<Transaction>{}; 
-        return transactions;
+        int transactionCounter = 1;
+        int personCounter = 1;
+
+        Dictionary<string, int> peopleNames = new Dictionary<string, int>{};
+
+        foreach (string line in lines) {
+            string[] data = line.Split(",");
+
+            string date = data[0];
+            string fromName = data[1];
+            string toName = data[2];
+            string label = data[3];
+            float.TryParse(data[4], out float amount);
+           
+            Person fromPerson = new Person{
+                Id = peopleNames.ContainsKey(fromName) ? peopleNames[fromName] : personCounter,
+                Name = fromName
+            };
+
+            if (!peopleNames.ContainsKey(fromName))
+            {
+                peopleNames.Add(fromName, personCounter);
+
+                people.Add(fromPerson);    
+
+                personCounter++;
+            }
+
+             Person toPerson = new Person{
+                Id = peopleNames.ContainsKey(toName) ? peopleNames[toName] : personCounter,
+                Name = toName
+            };
+
+            if (!peopleNames.ContainsKey(toName))
+            {
+                peopleNames.Add(toName, personCounter);
+
+                people.Add(toPerson);
+
+                personCounter++;
+            }
+
+            Transaction transaction = new Transaction 
+            {
+                Id = transactionCounter, 
+                Date = date, 
+                From = fromPerson,
+                To = toPerson,
+                Label = label, 
+                Amount = amount 
+            };
+
+            transactions.Add(transaction);
+
+            transactionCounter++;
+        }
+
+        return (people, transactions);
     }
 }

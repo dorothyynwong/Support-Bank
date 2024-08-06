@@ -6,8 +6,7 @@ public class Program
     {
         string fileName = "test.csv";
         Extractor extractor = new Extractor { FileName = fileName };
-        List<Person> listOfPeople = extractor.ExtractPeople();
-        List<Transaction> listOfTransactions = extractor.ExtractTransactions();
-        Report report = new Report(listOfPeople, listOfTransactions);
+        (List<Person>, List<Transaction>) data = extractor.ExtractData();
+        Report report = new Report(data.Item1, data.Item2);
     }
 }
