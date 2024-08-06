@@ -50,7 +50,7 @@ public class Extractor {
             string fromName = data[1];
             string toName = data[2];
             string label = data[3];
-            float.TryParse(data[4], out float amount);
+            double.TryParse(data[4], out double amount);
            
             Person fromPerson = new Person{
                 Id = peopleNames.ContainsKey(fromName) ? peopleNames[fromName] : personCounter,

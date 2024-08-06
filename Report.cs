@@ -19,4 +19,18 @@ public class Report
     {
         Console.WriteLine("list of people and their transactions");
     }
+
+    public double CalculateAmountLent(Person person) {
+        double total = 0;
+        List<Transaction> fromTransactions = Transactions.FindAll(transaction => transaction.From.Name == person.Name);
+        foreach(Transaction fromTransaction in fromTransactions) total += fromTransaction.Amount;
+        total = Math.Round(total, 2);
+        return total;
+    }
+
+    public double CalculateAmountOwed(Person person) {
+        double total = 0;
+        return total;
+    }
+
 }
