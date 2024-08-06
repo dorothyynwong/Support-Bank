@@ -25,9 +25,22 @@ public class Report
 
     }
 
-    public void ListTransactionsByPerson(Person person)
-    {
-        Console.WriteLine("list of people and their transactions");
+    public void ListTransactionsByPerson(string personName)
+    {   
+        List<Transaction> transactions = Transactions.FindAll(transaction => transaction.From.Name == personName);
+        Console.WriteLine($"Name: {personName}");
+
+        foreach(Transaction transaction in transactions)
+        {
+            double amountValue = transaction.Amount;
+             string amount = String.Format("{0:0.00}", Math.Round(amountValue, 2));
+
+            Console.Write($"Date: {transaction.Date} | ");
+            Console.Write($"Label: {transaction.Label} | ");
+            Console.Write($"To: {transaction.To.Name} | ");
+            Console.WriteLine($"Amount: {amount}");
+        }
+        
     }
 
     public double CalculateAmountLent(Person person) {

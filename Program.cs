@@ -12,6 +12,7 @@ public class Program
         Report report = new Report(data.Item1, data.Item2);
         // Person testPerson = new Person {Id = 1, Name = "Jon A"};
         // Console.WriteLine(report.CalculateAmountLent(testPerson));
-        report.ListAllTransactions();
+        // report.ListAllTransactions();
+        report.ListTransactionsByPerson("Dan W");
     }
 }
