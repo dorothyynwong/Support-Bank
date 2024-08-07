@@ -21,17 +21,16 @@ public class Extractor
     {
         List<string> lines = new List<string>();
         try
-        {
+        {   
             using (StreamReader sr = new StreamReader(FileName))
             {
                 string line;
-
                 line = sr.ReadLine(); //skip the header line
 
                 if (line != "Date,From,To,Narrative,Amount")
                 {
-                    Logger.Fatal($"The header is in an incorrect format.\nCurrent header: {line}");
                     throw new Exception("Invalid File");
+                    Logger.Fatal($"The header is in an incorrect format.\nCurrent header: {line}");
                 }
 
                 while ((line = sr.ReadLine()) != null)
@@ -126,6 +125,7 @@ public class Extractor
             }
             catch (Exception e)
             {
+                Logger.Error($"The line is in an incorrect format.\nIncorrect line: {line}");
                 Console.WriteLine($"Invalid data: {e.Message}");
                 Console.WriteLine("The line could not be read:");
                 Console.WriteLine(line);
