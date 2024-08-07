@@ -40,19 +40,24 @@ public class Program
     }
     public static void Main()
     {
+        string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+
         var config = new LoggingConfiguration();
-        var target = new FileTarget { FileName = @".\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+        var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
         config.AddTarget("File Logger", target);
         config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
         LogManager.Configuration = config;
-//logger.Info("Created a person {@person} at {now}", this, DateTime.Now);
-        Logger.Info("Logger is working!");
 
-        string fileName = "./Files/Transactions2014.csv";
+        // string fileName = "./Files/Transactions2014.csv";
+        string fileName = "./Files/EmptyFile.csv";
+        Logger.Info($"Importing file {fileName}");
         Extractor extractor = new Extractor { FileName = fileName };
         (List<Person>, List<Transaction>) data = extractor.ExtractData();
-        Report report = new Report(data.Item1, data.Item2);
-
-        GetUserChoiceAndReport(report);
+        if(data != (null, null)) 
+        {
+            Report report = new Report(data.Item1, data.Item2);
+            GetUserChoiceAndReport(report);
+        }
+        
     }
 }

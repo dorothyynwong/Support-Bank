@@ -10,7 +10,7 @@ public class Extractor {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
     public string FileName {get; set;}
     
-    private List<string> GetDataFromFile() {
+    private List<string>? GetDataFromFile() {
         List<string> lines = new List<string>();
         try
         {
@@ -20,19 +20,25 @@ public class Extractor {
                 
                 line = sr.ReadLine(); //skip the header line
 
+                if (line != "Date,From,To,Narrative,Amount")
+                {
+                    Logger.Fatal($"The header is in an incorrect format.\nCurrent header: {line}");
+                    throw new Exception("Invalid File");
+                }
+
                 while ((line = sr.ReadLine()) != null)
                 {
                     lines.Add(line);
                 }
             }
+            return lines;
         }
         catch (Exception e)
         {
             Console.WriteLine("The file could not be read:");
             Console.WriteLine(e.Message);
+            return null;
         }
-
-        return lines;
     }
 
     public (List<Person>, List<Transaction>) ExtractData () {
@@ -40,6 +46,7 @@ public class Extractor {
         List<Transaction> transactions = new List<Transaction> {};
         
         List<string> lines = GetDataFromFile();
+        if (lines == null) return (null, null);
 
         int transactionCounter = 1;
         int personCounter = 1;
