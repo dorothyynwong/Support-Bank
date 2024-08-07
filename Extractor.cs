@@ -52,31 +52,23 @@ public class Extractor {
             string label = data[3];
             double.TryParse(data[4], out double amount);
            
-            Person fromPerson = new Person{
-                Id = peopleNames.ContainsKey(fromName) ? peopleNames[fromName] : personCounter,
-                Name = fromName
-            };
-
-            if (!peopleNames.ContainsKey(fromName))
-            {
-                peopleNames.Add(fromName, personCounter);
-
-                people.Add(fromPerson);    
-
+            Person? fromPerson = people.Find(person => person.Name == fromName);
+            if (fromPerson == null) {
+                fromPerson = new Person{
+                    Id = personCounter,
+                    Name = fromName
+                };
+                people.Add(fromPerson);
                 personCounter++;
             }
 
-             Person toPerson = new Person{
-                Id = peopleNames.ContainsKey(toName) ? peopleNames[toName] : personCounter,
-                Name = toName
-            };
-
-            if (!peopleNames.ContainsKey(toName))
-            {
-                peopleNames.Add(toName, personCounter);
-
+            Person? toPerson = people.Find(person => person.Name == toName);
+            if (toPerson == null) {
+                toPerson = new Person{
+                    Id = personCounter,
+                    Name = toName
+                };
                 people.Add(toPerson);
-
                 personCounter++;
             }
 
