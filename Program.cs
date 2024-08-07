@@ -57,14 +57,12 @@ public class Program
         config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
         LogManager.Configuration = config;
 
-        // string fileName = "./Files/Transactions2014.csv";
-        (List<Person>, List<Transaction>)? data = ImportCsvFile("./Files/Transactions2014.csv");
+        (List<Person>, List<Transaction>) data = ImportCsvFile("./Files/DodgyTransactions2015.csv");
         
         if(data != (null, null)) 
         {
-            Console.WriteLine(data);
-            // Report report = new Report(data.Item1, data.Item2);
-            // GetUserChoiceAndReport(report);
+            Report report = new Report(data.Item1, data.Item2);
+            GetUserChoiceAndReport(report);
         }
         
     }
