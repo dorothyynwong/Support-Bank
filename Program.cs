@@ -1,4 +1,4 @@
-﻿using NLog;
+﻿﻿using NLog;
 using NLog.Config;
 using NLog.Targets;
 
@@ -43,17 +43,8 @@ public class Program
     {
         Logger.Info($"Importing file {fileName}");
         Extractor extractor = new Extractor { FileName = fileName };
-        // (List<Person>, List<Transaction>) data = extractor.ExtractData();
-        // return data;
-        List<string[]> dataList = extractor.ExtractCsvData();
-        Validator validator = new Validator(dataList);
-        if (dataList.Count>0 && validator.isHeaderValid())
-        {      
-            List<string[]> validLines = validator.GetValidLines();
-            foreach(string[] validLine in validLines) Console.WriteLine(validLine[4]);
-        }
-  
-        return (null, null);
+        (List<Person>, List<Transaction>) data = extractor.ExtractData();
+        return data;
     }
 
     private static void ImportJsonFile(string fileName)
@@ -64,22 +55,22 @@ public class Program
     
     public static void Main()
     {
-        // string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+        string currentDirectory = System.IO.Directory.GetCurrentDirectory();
 
-        // var config = new LoggingConfiguration();
-        // var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
-        // config.AddTarget("File Logger", target);
-        // config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
-        // LogManager.Configuration = config;
+        var config = new LoggingConfiguration();
+        var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+        config.AddTarget("File Logger", target);
+        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
+        LogManager.Configuration = config;
 
-        (List<Person>, List<Transaction>) data = ImportCsvFile("./Files/EmptyFile.csv");
+        // (List<Person>, List<Transaction>) data = ImportCsvFile("./Files/DodgyTransactions2015.csv");
         
-        if(data != (null, null)) 
-        {
-            Report report = new Report(data.Item1, data.Item2);
-            GetUserChoiceAndReport(report);
-        }
+        // if(data != (null, null)) 
+        // {
+        //     Report report = new Report(data.Item1, data.Item2);
+        //     GetUserChoiceAndReport(report);
+        // }
 
-        // ImportJsonFile("./Files/Transactions2013.json");
+        ImportJsonFile("./Files/Transactions2013.json");
     }
 }

@@ -24,49 +24,45 @@ public class Extractor
         return jsonInterfaceList;
     }
 
-    private string[] GetDataFromCsvFile()
+    private List<string>? GetDataFromFile()
     {
-        try {
-            string[] lines = File.ReadAllLines(FileName);
+        List<string> lines = new List<string>();
+        try
+        {   
+            using (StreamReader sr = new StreamReader(FileName))
+            {
+                string line;
+                line = sr.ReadLine(); //skip the header line
+
+                if (line != "Date,From,To,Narrative,Amount")
+                {
+                    throw new Exception("Invalid File");
+                    Logger.Fatal($"The header is in an incorrect format.\nCurrent header: {line}");
+                }
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    lines.Add(line);
+                }
+            }
             return lines;
-        } catch {
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("The file could not be read:");
+            Console.WriteLine(e.Message);
             return null;
         }
-        
     }
 
-    // private List<string>? GetDataFromFile()
-    // {
-    //     List<string> lines = new List<string>();
-    //     try
-    //     {   
-    //         using (StreamReader sr = new StreamReader(FileName))
-    //         {
-    //             string line;
-    //             line = sr.ReadLine(); //skip the header line
-
-    //             if (line != "Date,From,To,Narrative,Amount")
-    //             {
-    //                 throw new Exception("Invalid File");
-    //                 Logger.Fatal($"The header is in an incorrect format.\nCurrent header: {line}");
-    //             }
-
-    //             while ((line = sr.ReadLine()) != null)
-    //             {
-    //                 lines.Add(line);
-    //             }
-    //         }
-    //         return lines;
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         Console.WriteLine("The file could not be read:");
-    //         Console.WriteLine(e.Message);
-    //         return null;
-    //     }
-    // }
-
-
+    private Boolean isValidLine(string[] data)
+    {
+        return 
+        (
+            double.TryParse(data[4], out double amount) 
+            && DateTime.TryParseExact(data[0], "dd/MM/yyyy", _enGB , DateTimeStyles.None, out DateTime _)
+        );
+    }
 
     private Person FindPerson(string personName, List<Person> people)
     {
@@ -86,82 +82,68 @@ public class Extractor
         Console.WriteLine(GetDataFromJsonFile());
     }
 
-    public List<string[]> ExtractCsvData() {
-        List<string[]> dataList = new List<string[]>();
-        string[] lines = GetDataFromCsvFile();
+    public (List<Person>, List<Transaction>) ExtractData()
+    {
+        List<Person> people = new List<Person> { };
+        List<Transaction> transactions = new List<Transaction> { };
 
-        foreach(string line in lines){
-            dataList.Add(line.Split(","));
+        List<string> lines = GetDataFromFile();
+        if (lines == null) return (null, null);
+
+        foreach (string line in lines)
+        {
+            try
+            {
+                string[] data = line.Split(",");
+
+                if (isValidLine(data))
+                {
+                    string date = data[0];
+                    string fromName = data[1];
+                    string toName = data[2];
+                    string label = data[3];
+                    double.TryParse(data[4], out double amount);
+
+                    Person fromPerson = FindPerson(fromName, people);
+                    if (fromPerson == null)
+                    {
+                        fromPerson = CreatePerson(fromName);
+                        people.Add(fromPerson);
+                    }
+
+                    Person toPerson = FindPerson(toName, people);
+                    if (toPerson == null)
+                    {
+                        toPerson = CreatePerson(toName);
+                        people.Add(toPerson);
+                    }
+                    Transaction transaction = new Transaction
+                    {
+                        Id = _transactionCounter,
+                        Date = date,
+                        From = fromPerson,
+                        To = toPerson,
+                        Label = label,
+                        Amount = amount
+                    };
+
+                    transactions.Add(transaction);
+
+                    _transactionCounter++;
+                }
+                else
+                {
+                    throw new Exception("Invalid line");
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"The line is in an incorrect format.\nIncorrect line: {line}");
+                Console.WriteLine($"Invalid data: {e.Message}");
+                Console.WriteLine("The line could not be read:");
+                Console.WriteLine(line);
+            }
         }
-        return dataList;
+        return (people, transactions);
     }
-
-    // public (List<Person>, List<Transaction>) ExtractData()
-    // {
-    //     List<Person> people = new List<Person> { };
-    //     List<Transaction> transactions = new List<Transaction> { };
-
-    //     string[] lines = GetDataFromCsvFile();
-    //     Validator validator = new Validator(lines);
-    //     Console.WriteLine(validator.ValidateFile());
-
-    //     if (lines == null) return (null, null);
-
-    //     foreach (string line in lines)
-    //     {
-    //         try
-    //         {
-    //             string[] data = line.Split(",");
-
-    //             // if (isValidLine(data))
-    //             if (true)
-    //             {
-    //                 string date = data[0];
-    //                 string fromName = data[1];
-    //                 string toName = data[2];
-    //                 string label = data[3];
-    //                 double.TryParse(data[4], out double amount);
-
-    //                 Person fromPerson = FindPerson(fromName, people);
-    //                 if (fromPerson == null)
-    //                 {
-    //                     fromPerson = CreatePerson(fromName);
-    //                     people.Add(fromPerson);
-    //                 }
-
-    //                 Person toPerson = FindPerson(toName, people);
-    //                 if (toPerson == null)
-    //                 {
-    //                     toPerson = CreatePerson(toName);
-    //                     people.Add(toPerson);
-    //                 }
-    //                 Transaction transaction = new Transaction
-    //                 {
-    //                     Id = _transactionCounter,
-    //                     Date = date,
-    //                     From = fromPerson,
-    //                     To = toPerson,
-    //                     Label = label,
-    //                     Amount = amount
-    //                 };
-
-    //                 transactions.Add(transaction);
-
-    //                 _transactionCounter++;
-    //             }
-    //             else
-    //             {
-    //                 throw new Exception("Invalid line");
-    //             }
-    //         }
-    //         catch (Exception e)
-    //         {
-    //             Logger.Error($"The line is in an incorrect format.\nIncorrect line: {line}");
-    //             Console.WriteLine($"Invalid data: {e.Message}");
-    //             Console.WriteLine("The line could not be read:");
-    //             Console.WriteLine(line);
-    //         }
-    //     }
-    //     return (people, transactions);
-    // }
 }
