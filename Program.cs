@@ -1,10 +1,16 @@
-﻿namespace SupportBank;
+﻿using NLog;
+using NLog.Config;
+using NLog.Targets;
+
+namespace SupportBank;
 
 public class Program
 {
-    private static void GetUserChoiceAndReport(Report report) {
+    private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+    private static void GetUserChoiceAndReport(Report report)
+    {
         string? userChoice;
-        
+
         do
         {
             Console.WriteLine("Would you like to 1. List All accounts or 2. List a person's account (1/2)?");
@@ -34,11 +40,19 @@ public class Program
     }
     public static void Main()
     {
+        var config = new LoggingConfiguration();
+        var target = new FileTarget { FileName = @".\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+        config.AddTarget("File Logger", target);
+        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
+        LogManager.Configuration = config;
+//logger.Info("Created a person {@person} at {now}", this, DateTime.Now);
+        Logger.Info("Logger is working!");
+
         string fileName = "./Files/Transactions2014.csv";
         Extractor extractor = new Extractor { FileName = fileName };
         (List<Person>, List<Transaction>) data = extractor.ExtractData();
         Report report = new Report(data.Item1, data.Item2);
-    
+
         GetUserChoiceAndReport(report);
     }
 }

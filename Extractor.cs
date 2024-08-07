@@ -1,14 +1,17 @@
 using System;
 using System.IO;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
 namespace SupportBank;
 
 public class Extractor {
+    private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
     public string FileName {get; set;}
-
+    
     private List<string> GetDataFromFile() {
         List<string> lines = new List<string>();
-
         try
         {
             using (StreamReader sr = new StreamReader(FileName))
