@@ -38,6 +38,15 @@ public class Program
         while (userChoice.ToLower() != "q");
 
     }
+
+    private static (List<Person>, List<Transaction>) ImportCsvFile(string fileName)
+    {
+        Logger.Info($"Importing file {fileName}");
+        Extractor extractor = new Extractor { FileName = fileName };
+        (List<Person>, List<Transaction>) data = extractor.ExtractData();
+        return data;
+    }
+    
     public static void Main()
     {
         string currentDirectory = System.IO.Directory.GetCurrentDirectory();
@@ -49,14 +58,13 @@ public class Program
         LogManager.Configuration = config;
 
         // string fileName = "./Files/Transactions2014.csv";
-        string fileName = "./Files/EmptyFile.csv";
-        Logger.Info($"Importing file {fileName}");
-        Extractor extractor = new Extractor { FileName = fileName };
-        (List<Person>, List<Transaction>) data = extractor.ExtractData();
+        (List<Person>, List<Transaction>)? data = ImportCsvFile("./Files/Transactions2014.csv");
+        
         if(data != (null, null)) 
         {
-            Report report = new Report(data.Item1, data.Item2);
-            GetUserChoiceAndReport(report);
+            Console.WriteLine(data);
+            // Report report = new Report(data.Item1, data.Item2);
+            // GetUserChoiceAndReport(report);
         }
         
     }

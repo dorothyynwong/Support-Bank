@@ -51,8 +51,6 @@ public class Extractor {
         int transactionCounter = 1;
         int personCounter = 1;
 
-        Dictionary<string, int> peopleNames = new Dictionary<string, int>{};
-
         foreach (string line in lines) {
             string[] data = line.Split(",");
 
