@@ -46,6 +46,12 @@ public class Program
         (List<Person>, List<Transaction>) data = extractor.ExtractData();
         return data;
     }
+
+    private static void ImportJsonFile(string fileName)
+    {
+        Extractor extractor = new Extractor { FileName = fileName };
+        extractor.ExtractJsonData();
+    }
     
     public static void Main()
     {
@@ -57,13 +63,14 @@ public class Program
         config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
         LogManager.Configuration = config;
 
-        (List<Person>, List<Transaction>) data = ImportCsvFile("./Files/DodgyTransactions2015.csv");
+        // (List<Person>, List<Transaction>) data = ImportCsvFile("./Files/DodgyTransactions2015.csv");
         
-        if(data != (null, null)) 
-        {
-            Report report = new Report(data.Item1, data.Item2);
-            GetUserChoiceAndReport(report);
-        }
-        
+        // if(data != (null, null)) 
+        // {
+        //     Report report = new Report(data.Item1, data.Item2);
+        //     GetUserChoiceAndReport(report);
+        // }
+
+        ImportJsonFile("./Files/Transactions2013.json");
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
+using Newtonsoft.Json;
 
 namespace SupportBank;
 
@@ -16,6 +17,12 @@ public class Extractor
     private int _transactionCounter = 1;
     public string FileName { get; set; }
 
+    private List<JsonInterface> GetDataFromJsonFile()
+    {
+        string fileContent = File.ReadAllText(FileName);
+        List<JsonInterface> jsonInterfaceList = JsonConvert.DeserializeObject<List<JsonInterface>>(fileContent);
+        return jsonInterfaceList;
+    }
 
     private List<string>? GetDataFromFile()
     {
@@ -67,6 +74,12 @@ public class Extractor
         Person person = new Person {Id = _personCounter, Name = personName };
         _personCounter++;
         return person;
+    }
+
+    // public (List<Person>, List<Transaction>) ExtractJsonData()
+    public void ExtractJsonData()
+    {
+        Console.WriteLine(GetDataFromJsonFile());
     }
 
     public (List<Person>, List<Transaction>) ExtractData()
