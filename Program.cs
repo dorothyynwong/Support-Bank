@@ -36,21 +36,29 @@ public class Program
             }
         }
         while (userChoice.ToLower() != "q");
-
     }
 
-    private static (List<Person>, List<Transaction>) ImportCsvFile(string fileName)
+    private static List<LineOfData> ImportCsvFile(string fileName)
     {
         Logger.Info($"Importing file {fileName}");
         Extractor extractor = new Extractor { FileName = fileName };
-        (List<Person>, List<Transaction>) data = extractor.ExtractData();
+        List<LineOfData> data = extractor.ExtractCsvData();
+        foreach (var line in data)
+        {
+            Console.WriteLine(line.FromAccount);
+        }
         return data;
     }
 
-    private static void ImportJsonFile(string fileName)
+    private static List<LineOfData> ImportJsonFile(string fileName)
     {
         Extractor extractor = new Extractor { FileName = fileName };
-        extractor.ExtractJsonData();
+        List<LineOfData> data = extractor.ExtractJsonData();
+        foreach (var line in data)
+        {
+            Console.WriteLine(line.FromAccount);
+        }
+        return data;
     }
     
     public static void Main()
@@ -71,6 +79,7 @@ public class Program
         //     GetUserChoiceAndReport(report);
         // }
 
+        // ImportCsvFile("./Files/DodgyTransactions2015.csv");
         ImportJsonFile("./Files/Transactions2013.json");
     }
 }
