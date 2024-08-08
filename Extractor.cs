@@ -10,8 +10,8 @@ namespace SupportBank;
 
 public class Extractor
 {
-    private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
-    private CultureInfo _enGB = new CultureInfo("en-GB");
+    // private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+    // private CultureInfo _enGB = new CultureInfo("en-GB");
 
     private int _personCounter = 1;
     private int _transactionCounter = 1;
@@ -54,14 +54,14 @@ public class Extractor
     //     }
     // }
 
-    private Boolean isValidLine(string[] data)
-    {
-        return 
-        (
-            double.TryParse(data[4], out double amount) 
-            && DateTime.TryParseExact(data[0], "dd/MM/yyyy", _enGB , DateTimeStyles.None, out DateTime _)
-        );
-    }
+    // private Boolean isValidLine(string[] data)
+    // {
+    //     return 
+    //     (
+    //         double.TryParse(data[4], out double amount) 
+    //         && DateTime.TryParseExact(data[0], "dd/MM/yyyy", _enGB , DateTimeStyles.None, out DateTime _)
+    //     );
+    // }
 
     private Person FindPerson(string personName, List<Person> people)
     {

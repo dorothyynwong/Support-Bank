@@ -1,8 +1,11 @@
-﻿using NLog;
+﻿using System;
+using System.Globalization;
+using System.IO;
+using NLog;
 using NLog.Config;
 using NLog.Targets;
 
-namespace SupportBank;
+namespace SupportBank;    
 
 public class Program
 {
@@ -79,7 +82,10 @@ public class Program
         //     GetUserChoiceAndReport(report);
         // }
 
-        // ImportCsvFile("./Files/DodgyTransactions2015.csv");
-        ImportJsonFile("./Files/Transactions2013.json");
+        List<LineOfData> lines = ImportCsvFile("./Files/DodgyTransactions2015.csv");
+        Validator validator = new Validator();
+        List<LineOfData> validLines = validator.ValidateLines(lines, "csv");
+        foreach(var line in validLines) Console.WriteLine(line.Amount);
+        // ImportJsonFile("./Files/Transactions2013.json");
     }
 }
