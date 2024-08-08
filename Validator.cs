@@ -24,13 +24,19 @@ public class Validator
     private Boolean isValidLine(LineOfData line, string dataSource)
     {
         string dateFormat = "";
-        if(dataSource == "csv")
+        switch (dataSource)
         {
-            dateFormat =  "dd/MM/yyyy";
-        }
-        else 
-        {
-            dateFormat =  "yyyy-MM-ddTHH:mm:ss";
+            case "csv":
+                dateFormat = "dd/MM/yyyy";
+                break;
+            case "json":
+               dateFormat = "yyyy-MM-ddTHH:mm:ss"; 
+               break;
+            case "xml":
+                dateFormat = "dd/MM/yyyy HH:mm:ss";
+                break;
+            default:
+                break;
         }
             
         return 

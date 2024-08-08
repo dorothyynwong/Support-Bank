@@ -10,6 +10,13 @@ namespace SupportBank;
 public class Program
 {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+
+    private static string GetFileExtension(string fileName)
+    {
+        string ext = Path.GetExtension(fileName).Replace(".", ""); 
+        return ext;
+    }
+
     private static void GetUserChoiceAndReport(Report report)
     {
         string? userChoice;
@@ -41,19 +48,35 @@ public class Program
         while (userChoice.ToLower() != "q");
     }
 
-    private static List<LineOfData> ImportCsvFile(string fileName)
-    {
-        Logger.Info($"Importing file {fileName}");
-        Extractor extractor = new Extractor { FileName = fileName };
-        List<LineOfData> data = extractor.ExtractCsvData();
-        return data;
-    }
+    // private static List<LineOfData> ImportCsvFile(string fileName)
+    // {
+    //     Logger.Info($"Importing file {fileName}");
+    //     Extractor extractor = new Extractor { FileName = fileName };
+    //     List<LineOfData> data = extractor.ExtractCsvData();
+    //     return data;
+    // }
 
-    private static List<LineOfData> ImportJsonFile(string fileName)
+    // private static List<LineOfData> ImportJsonFile(string fileName)
+    // {
+    //     Extractor extractor = new Extractor { FileName = fileName };
+    //     List<LineOfData> data = extractor.ExtractJsonData();
+    //     return data;
+    // }
+
+    private static List<LineOfData> ImportData(string fileName, string fileType)
     {
         Extractor extractor = new Extractor { FileName = fileName };
-        List<LineOfData> data = extractor.ExtractJsonData();
-        return data;
+        switch (fileType)
+        {
+            case "csv":
+                return extractor.ExtractCsvData();
+            case "json":
+                return extractor.ExtractJsonData();
+            case "xml":
+                return extractor.ExtractXmlData();
+            default:
+                return null;
+        }
     }
     
     public static void Main()
@@ -66,23 +89,21 @@ public class Program
         config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
         LogManager.Configuration = config;
 
-        // (List<Person>, List<Transaction>) data = ImportCsvFile("./Files/DodgyTransactions2015.csv");
-        
-        // if(data != (null, null)) 
-        // {
-        //     Report report = new Report(data.Item1, data.Item2);
-        //     GetUserChoiceAndReport(report);
-        // }
+        // string fileName = "./Files/DodgyTransactions2015.csv";
+        // string fileName = "./Files/DodgyTransactions2013.json";
+        // string fileName = "./Files/Transactions2013.json";
+        string fileName = "./Files/Transactions2012.xml";
 
-        List<LineOfData> lines = ImportCsvFile("./Files/DodgyTransactions2015.csv");
-        // List<LineOfData> lines = ImportJsonFile("./Files/DodgyTransactions2013.json");
+        string fileType = GetFileExtension(fileName);
+
+        // List<LineOfData> lines = ImportCsvFile(fileName);
+        List<LineOfData> lines = ImportData(fileName, fileType);
         Validator validator = new Validator();
-        List<LineOfData> validLines = validator.ValidateLines(lines, "csv");
-        // foreach(var line in validLines) Console.WriteLine(line.Amount);
+        List<LineOfData> validLines = validator.ValidateLines(lines, fileType);
         DataProcessor dataProcessor = new DataProcessor();
         (List<Person>, List<Transaction>) data = dataProcessor.ProcessData(validLines);
-        List<Transaction> transactions = data.Item2;
-        foreach(var transaction in transactions) Console.WriteLine(transaction.Amount);
-        // ImportJsonFile("./Files/Transactions2013.json");
+
+        Report report = new Report(data.Item1, data.Item2);
+        GetUserChoiceAndReport(report);
     }
 }
