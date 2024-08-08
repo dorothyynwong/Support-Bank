@@ -82,9 +82,10 @@ public class Program
         //     GetUserChoiceAndReport(report);
         // }
 
-        List<LineOfData> lines = ImportCsvFile("./Files/DodgyTransactions2015.csv");
+        // List<LineOfData> lines = ImportCsvFile("./Files/DodgyTransactions2015.csv");
+        List<LineOfData> lines = ImportJsonFile("./Files/DodgyTransactions2013.json");
         Validator validator = new Validator();
-        List<LineOfData> validLines = validator.ValidateLines(lines, "csv");
+        List<LineOfData> validLines = validator.ValidateLines(lines, "json");
         foreach(var line in validLines) Console.WriteLine(line.Amount);
         // ImportJsonFile("./Files/Transactions2013.json");
     }

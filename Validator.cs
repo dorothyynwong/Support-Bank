@@ -21,12 +21,23 @@ public class Validator
                header.Amount == "Amount";
     }
 
-    private Boolean isValidLine(LineOfData line)
+    private Boolean isValidLine(LineOfData line, string dataSource)
     {
+        string dateFormat = "";
+        if(dataSource == "csv")
+        {
+            dateFormat =  "dd/MM/yyyy";
+        }
+        else 
+        {
+            // "2013-01-13T00:00:00"
+            dateFormat =  "yyyy-MM-ddTHH:mm:ss";
+        }
+            
         return 
         (
             double.TryParse(line.Amount, out double amount) 
-            && DateTime.TryParseExact(line.Date, "dd/MM/yyyy", _enGB , DateTimeStyles.None, out DateTime _)
+            && DateTime.TryParseExact(line.Date, dateFormat , _enGB , DateTimeStyles.None, out DateTime _)
         );
     }
 
@@ -57,7 +68,7 @@ public class Validator
         {
             try
             {
-                if (isValidLine(line))
+                if (isValidLine(line, dataSource))
                 {
                     validLines.Add(line);
                 }
