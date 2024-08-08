@@ -5,8 +5,7 @@ public class ReportFile : Report
     public ReportFile(List<Person> people, List<Transaction> transactions) 
             : base(people, transactions)
     {
-        this.People = people;
-        this.Transactions = transactions;
+
     }
 
     private List<string> PrintAllTransactions ()
