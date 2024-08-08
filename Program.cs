@@ -46,10 +46,6 @@ public class Program
         Logger.Info($"Importing file {fileName}");
         Extractor extractor = new Extractor { FileName = fileName };
         List<LineOfData> data = extractor.ExtractCsvData();
-        foreach (var line in data)
-        {
-            Console.WriteLine(line.FromAccount);
-        }
         return data;
     }
 
@@ -57,10 +53,6 @@ public class Program
     {
         Extractor extractor = new Extractor { FileName = fileName };
         List<LineOfData> data = extractor.ExtractJsonData();
-        foreach (var line in data)
-        {
-            Console.WriteLine(line.FromAccount);
-        }
         return data;
     }
     
@@ -82,11 +74,15 @@ public class Program
         //     GetUserChoiceAndReport(report);
         // }
 
-        // List<LineOfData> lines = ImportCsvFile("./Files/DodgyTransactions2015.csv");
-        List<LineOfData> lines = ImportJsonFile("./Files/DodgyTransactions2013.json");
+        List<LineOfData> lines = ImportCsvFile("./Files/DodgyTransactions2015.csv");
+        // List<LineOfData> lines = ImportJsonFile("./Files/DodgyTransactions2013.json");
         Validator validator = new Validator();
-        List<LineOfData> validLines = validator.ValidateLines(lines, "json");
-        foreach(var line in validLines) Console.WriteLine(line.Amount);
+        List<LineOfData> validLines = validator.ValidateLines(lines, "csv");
+        // foreach(var line in validLines) Console.WriteLine(line.Amount);
+        DataProcessor dataProcessor = new DataProcessor();
+        (List<Person>, List<Transaction>) data = dataProcessor.ProcessData(validLines);
+        List<Transaction> transactions = data.Item2;
+        foreach(var transaction in transactions) Console.WriteLine(transaction.Amount);
         // ImportJsonFile("./Files/Transactions2013.json");
     }
 }

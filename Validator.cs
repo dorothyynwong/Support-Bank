@@ -30,7 +30,6 @@ public class Validator
         }
         else 
         {
-            // "2013-01-13T00:00:00"
             dateFormat =  "yyyy-MM-ddTHH:mm:ss";
         }
             
@@ -52,8 +51,8 @@ public class Validator
                 {
                     string header = $"{data[0].Date}, {data[0].FromAccount}, {data[0].ToAccount}, {data[0].Narrative}, {data[0].Amount}";
                     string expectedHeader = "Date,From,To,Narrative,Amount";
-                    throw new Exception("Invalid File");
                     Logger.Fatal($"The header is in an incorrect format.\nExpected header: {expectedHeader} \nCurrent header: {header}.");
+                    throw new Exception("Invalid File");
                 }
             }
             catch (Exception e)
