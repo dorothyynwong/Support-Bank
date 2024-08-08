@@ -105,5 +105,8 @@ public class Program
 
         Report report = new Report(data.Item1, data.Item2);
         GetUserChoiceAndReport(report);
+
+        ReportFile reportFile = new ReportFile(data.Item1, data.Item2);
+        reportFile.ExportFile("./Files/Output/Transactions2012_xml.txt");
     }
 }

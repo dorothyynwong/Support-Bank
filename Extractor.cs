@@ -16,24 +16,7 @@ public class Extractor
     private int _personCounter = 1;
     private int _transactionCounter = 1;
     public string FileName { get; set; }
-    // private string[] GetDataFromCsvFile()
-    // {
-    //     string[] fileContent = File.ReadAllLines(FileName);
-    //     return fileContent;
-    // }
-
-    private Person FindPerson(string personName, List<Person> people)
-    {
-        return people.Find(person => person.Name == personName);
-    }
-
-    private Person CreatePerson(string personName) 
-    {
-        Person person = new Person {Id = _personCounter, Name = personName };
-        _personCounter++;
-        return person;
-    }
-
+   
     public List<LineOfData> ExtractXmlData() 
     {
         List<LineOfData> linesOfDataList = new List<LineOfData>{};
