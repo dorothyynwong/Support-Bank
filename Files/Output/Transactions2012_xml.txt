@@ -1,0 +1,60 @@
+Name: Gergana I 
+
+Total amount lent: 63.04 
+
+Total amount owed: 26.37
+Name: Jon A 
+
+Total amount lent: 71.92 
+
+Total amount owed: 81.17
+Name: Sam N 
+
+Total amount lent: 55.98 
+
+Total amount owed: 84.10
+Name: Dan W 
+
+Total amount lent: 88.27 
+
+Total amount owed: 124.20
+Name: Stephen S 
+
+Total amount lent: 109.88 
+
+Total amount owed: 66.98
+Name: Sarah T 
+
+Total amount lent: 100.11 
+
+Total amount owed: 60.19
+Name: Rob S 
+
+Total amount lent: 68.07 
+
+Total amount owed: 83.60
+Name: Tim L 
+
+Total amount lent: 123.07 
+
+Total amount owed: 80.51
+Name: Chris W 
+
+Total amount lent: 79.42 
+
+Total amount owed: 154.65
+Name: Todd 
+
+Total amount lent: 104.52 
+
+Total amount owed: 97.32
+Name: Ben B 
+
+Total amount lent: 32.93 
+
+Total amount owed: 103.36
+Name: Laura B 
+
+Total amount lent: 109.15 
+
+Total amount owed: 43.91

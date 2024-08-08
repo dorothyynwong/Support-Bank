@@ -10,30 +10,30 @@ public class ReportFile : Report
     //     }
     // }
 
-    public ReportFile(List<Person> people, List<Transaction> transactions) 
+    public ReportFile(List<Person> people, List<Transaction> transactions)
+        : base(people, transactions) // Call to base class constructor
     {
-        this.People = people;
-        this.Transactions = transactions;
+
     }
 
-    private string[] PrintAllTransactions ()
+    private List<string> PrintAllTransactions ()
     {
-        string[] fileContent;
+        List<string> fileContent = new List<string>{};
         foreach(Person person in People)
         {
-            fileContent += $"Name: {person.Name} \n";
+            fileContent.Add($"Name: {person.Name} \n");
             double lentValue = CalculateAmountLent(person);
             string amountLent = String.Format("{0:0.00}", Math.Round(lentValue, 2));
-            fileContent += $"Total amount lent: {amountLent} \n";
+            fileContent.Add($"Total amount lent: {amountLent} \n");
             double owedValue = CalculateAmountOwed(person);
             string amountOwed = String.Format("{0:0.00}", Math.Round(owedValue, 2));
-            fileContent += $"Total amount owed: {amountOwed}";
+            fileContent.Add($"Total amount owed: {amountOwed}");
         }
         return fileContent;
     }
     public void ExportFile(string fileName)
     {
-        string[] fileContent = PrintAllTransactions();
+        List<string> fileContent = PrintAllTransactions();
         File.WriteAllLines(fileName, fileContent);
     }   
 }
