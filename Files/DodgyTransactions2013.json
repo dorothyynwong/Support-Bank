@@ -1,0 +1,44 @@
+[
+    {
+        "Date": "2013-01-01T00:00:00",
+        "FromAccount": "Jon A",
+        "ToAccount": "Gergana I",
+        "Narrative": "Sandbox Help",
+        "Amount": 2.14
+    },
+    {
+        "Date": "2013-01-04T00:00:00",
+        "FromAccount": "Chris W",
+        "ToAccount": "Dan W",
+        "Narrative": "Coffee",
+        "Amount": 10.53
+    },
+    {
+        "Date": "2013-01-05T00:00:00",
+        "FromAccount": "Stephen S",
+        "ToAccount": "Tim L",
+        "Narrative": "Sandcastle Help",
+        "Amount": "Cheeseburger"
+    },
+    {
+        "Date": "2013-01-09T00:00:00",
+        "FromAccount": "Todd",
+        "ToAccount": "Rob S",
+        "Narrative": "Coffee",
+        "Amount": 8.19
+    },
+    {
+        "Date": "2013-01-13T00:00:00",
+        "FromAccount": "Todd",
+        "ToAccount": "Sarah T",
+        "Narrative": "Coffee",
+        "Amount": 1.01
+    },
+    {
+        "Date": "Last Monday",
+        "FromAccount": "Todd",
+        "ToAccount": "Laura B",
+        "Narrative": "Golf Bets",
+        "Amount": 2.71
+    }
+]

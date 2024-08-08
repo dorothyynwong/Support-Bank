@@ -20,7 +20,7 @@ public class Report
             Console.WriteLine($"Total amount lent: {amountLent}");
             double owedValue = CalculateAmountOwed(person);
             string amountOwed = String.Format("{0:0.00}", Math.Round(owedValue, 2));
-            Console.WriteLine($"Total amount lent: {amountOwed}");
+            Console.WriteLine($"Total amount owed: {amountOwed}");
         }
 
     }
