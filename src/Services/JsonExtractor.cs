@@ -8,7 +8,7 @@ public class JsonExtractor : IExtractor
     public List<LineOfData> ExtractData(string fileName)
     { 
         string fileContent = File.ReadAllText(FileName);
-        List<LineOfData> linesOfDataList = JsonConvert.DeserializeObject<List<LineOfData>>(fileContent);
-        return linesOfDataList;
+        List<LineOfData> parsedDataList = JsonConvert.DeserializeObject<List<LineOfData>>(fileContent);
+        return parsedDataList;
     }
 }

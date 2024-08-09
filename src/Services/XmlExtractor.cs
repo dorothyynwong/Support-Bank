@@ -12,7 +12,7 @@ public class XmlExtractor : IExtractor
     public List<LineOfData> ExtractData(string fileName)
     {
         
-    List<LineOfData> linesOfDataList = new List<LineOfData>{};
+    List<LineOfData> parsedDataList = new List<LineOfData>{};
 
         var xml = XDocument.Load(fileName);
 
@@ -29,7 +29,7 @@ public class XmlExtractor : IExtractor
         {
             DateTime date = DateTime.FromOADate(transaction.Date);
     
-            LineOfData line = new LineOfData
+            LineOfData parsedData = new LineOfData
             {
                 Date = date.ToString(_enGB),
                 FromAccount = transaction.FromAccount,
@@ -37,9 +37,9 @@ public class XmlExtractor : IExtractor
                 Narrative = transaction.Narrative,
                 Amount = transaction.Amount
             };
-            linesOfDataList.Add(line);
+            parsedDataList.Add(parsedData);
         }
 
-        return linesOfDataList;
+        return parsedDataList;
     }
 }

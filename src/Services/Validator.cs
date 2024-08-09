@@ -92,7 +92,7 @@ public static class Validator
             }
         }
 
-        return validLines.Count>0 ? validLines : null;
+        return validLines.Count > 0 ? validLines : null;
     }
 
 }

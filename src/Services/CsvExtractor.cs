@@ -8,12 +8,12 @@ public class CsvExtractor : IExtractor
         string[] lines = File.ReadAllLines(FileName);
         if (lines == null) return null;
 
-        List<LineOfData> dataList = new List<LineOfData>{};
+        List<LineOfData> parsedDataList = new List<LineOfData>{};
 
         foreach(string line in lines)
         {
             string[] data = line.Split(",");
-            LineOfData dataLine = new LineOfData{
+            LineOfData parsedData = new LineOfData{
                 Date = data[0],
                 FromAccount = data[1],
                 ToAccount = data[2],
@@ -21,9 +21,9 @@ public class CsvExtractor : IExtractor
                 Amount = data[4]
             };
 
-            dataList.Add(dataLine);
+            parsedDataList.Add(parsedData);
         }
 
-        return dataList;
+        return parsedDataList;
     }
 }

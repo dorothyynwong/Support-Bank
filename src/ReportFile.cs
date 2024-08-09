@@ -2,14 +2,6 @@ namespace SupportBank;
 
 public class ReportFile : Report
 {
-    // private string[] FormatReportContent()
-    // {
-    //     foreach (var transaction in transactions)
-    //     {
-    //         string formattedLine = $
-    //     }
-    // }
-
     public ReportFile(List<Person> people, List<Transaction> transactions) 
             : base(people, transactions)
     {

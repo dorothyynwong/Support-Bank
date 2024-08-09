@@ -11,7 +11,7 @@ public class Program
 {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
-    private static void SetupLogger()
+    public Program()
     {
         string currentDirectory = System.IO.Directory.GetCurrentDirectory();
 
@@ -24,8 +24,8 @@ public class Program
 
     private static string GetFileExtension(string fileName)
     {
-        string ext = Path.GetExtension(fileName).Replace(".", ""); 
-        return ext;
+        string extension = Path.GetExtension(fileName).Replace(".", ""); 
+        return extension;
     }
 
     private static void GetUserChoiceAndReport(Report report)
@@ -81,8 +81,6 @@ public class Program
     
     public static void Main()
     {
-        SetupLogger();
-
         // string fileName = "./Files/DodgyTransactions2015.csv";
         // string fileName = "./Files/DodgyTransactions2013.json";
         // string fileName = "./Files/Transactions2013.json";
@@ -93,12 +91,12 @@ public class Program
         List<LineOfData> lines = ImportData(fileName, fileType);
         List<LineOfData> validLines = Validator.ValidateLines(lines, fileType);
     
-        (List<Person>, List<Transaction>) data = DataProcessor.ProcessData(validLines);
+        (List<Person>, List<Transaction>) processedData = DataProcessor.ProcessData(validLines);
 
-        Report report = new Report(data.Item1, data.Item2);
+        Report report = new Report(processedData.Item1, processedData.Item2);
         GetUserChoiceAndReport(report);
 
-        ReportFile reportFile = new ReportFile(data.Item1, data.Item2);
+        ReportFile reportFile = new ReportFile(processedData.Item1, processedData.Item2);
         reportFile.ExportFile("./Files/Output/Transactions2012_xml.txt");
     }
 }
