@@ -91,6 +91,8 @@ public class Program
         string fileType = FileHelper.GetFileExtension(fileName);
 
         SupportBank supportBank = new SupportBank(GetFileHandler(fileName, fileType));
+
+        // Need to move these business logic to SupportBank.cs
         List<LineOfData> lines = supportBank.ImportData(fileName, fileType);
 
         if (lines != null)
