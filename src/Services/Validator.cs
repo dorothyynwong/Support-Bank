@@ -91,9 +91,7 @@ public static class Validator
                 Console.WriteLine(problemLine);
             }
         }
-    }
 
-        return validLines.Count > 0 ? validLines : null;
+    return (validLines.Count > 0) ? validLines : null;
     }
-
 }

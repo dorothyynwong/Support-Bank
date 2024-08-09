@@ -11,9 +11,10 @@ public class Program
 {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
+    private static string currentDirectory = System.IO.Directory.GetCurrentDirectory();
     public Program()
     {
-        string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+        // string currentDirectory = System.IO.Directory.GetCurrentDirectory();
 
         var config = new LoggingConfiguration();
         var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
@@ -93,9 +94,13 @@ public class Program
     {
         // string fileName = "./Files/DodgyTransactions2015.csv";
         // string fileName = "./Files/DodgyTransactions2013.json";
-        // string fileName = "./Files/Transactions2013.json";
+        string fileName = "./Files/Transactions2013.json";
         // string fileName = "./Files/Transactions2012.xml";
-        string fileName = "./Files/hahehohoha.txt";
+
+        
+        // string fileName = "./Files/Transactions2014.csv";
+
+        // string fileName = FileSelector.GetUserFileChoice(currentDirectory);
 
         string fileType = GetFileExtension(fileName);
 
