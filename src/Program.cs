@@ -22,11 +22,6 @@ public class Program
         LogManager.Configuration = config;
     }
 
-    private static string GetFileExtension(string fileName)
-    {
-        string extension = Path.GetExtension(fileName).Replace(".", ""); 
-        return extension;
-    }
 
     private static void GetUserChoiceAndReport(Report report)
     {
@@ -93,7 +88,7 @@ public class Program
     {
         string fileName = FileSelector.GetUserFileChoice(currentDirectory);
 
-        string fileType = GetFileExtension(fileName);
+        string fileType = FileHelper.GetFileExtension(fileName);
 
         SupportBank supportBank = new SupportBank(GetFileHandler(fileName, fileType));
         List<LineOfData> lines = supportBank.ImportData(fileName, fileType);
