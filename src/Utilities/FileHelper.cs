@@ -6,5 +6,5 @@ public static class FileHelper
     {
         string extension = Path.GetExtension(fileName).Replace(".", ""); 
         return extension;
-    }
+    } 
 }
