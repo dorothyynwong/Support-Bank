@@ -1,9 +1,3 @@
-Name: Gergana I
-Total amount lent: 63.04
-Total amount owed: 26.37
-Name: Jon A
-Total amount lent: 71.92
-Total amount owed: 81.17
 Name: Sam N
 Total amount lent: 55.98
 Total amount owed: 84.10
@@ -31,6 +25,12 @@ Total amount owed: 97.32
 Name: Ben B
 Total amount lent: 32.93
 Total amount owed: 103.36
+Name: Gergana I
+Total amount lent: 53.82
+Total amount owed: 26.37
 Name: Laura B
 Total amount lent: 109.15
 Total amount owed: 43.91
+Name: Jon A
+Total amount lent: 71.92
+Total amount owed: 71.95

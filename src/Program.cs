@@ -94,13 +94,13 @@ public class Program
     {
         // string fileName = "./Files/DodgyTransactions2015.csv";
         // string fileName = "./Files/DodgyTransactions2013.json";
-        string fileName = "./Files/Transactions2013.json";
+        // string fileName = "./Files/Transactions2013.json";
         // string fileName = "./Files/Transactions2012.xml";
 
         
         // string fileName = "./Files/Transactions2014.csv";
 
-        // string fileName = FileSelector.GetUserFileChoice(currentDirectory);
+        string fileName = FileSelector.GetUserFileChoice(currentDirectory);
 
         string fileType = GetFileExtension(fileName);
 

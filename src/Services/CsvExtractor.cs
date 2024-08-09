@@ -2,12 +2,12 @@ namespace SupportBank;
 
 public class CsvExtractor : IExtractor
 {
-    public string FileName { get; set; }
+    // public string FileName { get; set; }
     public List<LineOfData> ExtractData(string fileName)
     {
         try
         {
-            string[] lines = File.ReadAllLines(FileName);
+            string[] lines = File.ReadAllLines(fileName);
             if (lines == null) return null;
 
             List<LineOfData> parsedDataList = new List<LineOfData> { };

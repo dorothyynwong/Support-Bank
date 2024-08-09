@@ -7,7 +7,7 @@ namespace SupportBank;
 public class XmlExtractor : IExtractor
 {
     private CultureInfo _enGB = new CultureInfo("en-GB");
-    public string FileName { get; set; }
+    // public string FileName { get; set; }
 
     public List<LineOfData> ExtractData(string fileName)
     {
