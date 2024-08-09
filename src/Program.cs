@@ -10,18 +10,7 @@ namespace SupportBank;
 public class Program
 {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
-
-    private static string currentDirectory = System.IO.Directory.GetCurrentDirectory();
-    public Program()
-    {
-        // string currentDirectory = System.IO.Directory.GetCurrentDirectory();
-
-        var config = new LoggingConfiguration();
-        var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
-        config.AddTarget("File Logger", target);
-        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
-        LogManager.Configuration = config;
-    }
+    private static IFileHandler _fileHandler;
 
     private static string GetFileExtension(string fileName)
     {
@@ -62,37 +51,43 @@ public class Program
 
     private static List<LineOfData> ImportData(string fileName, string fileType)
     {
-        IExtractor extractor;
-        try
+        // Extractor extractor = new Extractor { FileName = fileName };
+        switch (fileType)
         {
-            switch (fileType)
-            {
-                case "csv":
-                    extractor = new CsvExtractor();
-                    break;
-                case "json":
-                    extractor = new JsonExtractor();
-                    break;
-                case "xml":
-                    extractor = new XmlExtractor();
-                    break;
-                default:
-                    throw new Exception("Invalid file extension");
-                    break;
-            }
-            return extractor.ExtractData(fileName);
+            case "csv":
+                // return extractor.ExtractCsvData();
+                _fileHandler = new CSVFileHandler();
+                break;
+            case "json":
+                // return extractor.ExtractJsonData();
+                _fileHandler = new JSONFileHandler();
+                break;
+            case "xml":
+                // return extractor.ExtractXmlData();
+                _fileHandler = new XMLFileHandler();
+                break;
+            default:
+                // return null;
+                break;
         }
-        catch (Exception e)
-        {
-            Logger.Fatal($"File doesn't have a valid extension.");
-            Console.WriteLine(e.Message);
-            return null;
-        }
+        _fileHandler.ImportFile(fileName);
+        return _fileHandler.GetData();
     }
     
     public static void Main()
     {
-        string fileName = FileSelector.GetUserFileChoice(currentDirectory);
+        string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+
+        var config = new LoggingConfiguration();
+        var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+        config.AddTarget("File Logger", target);
+        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
+        LogManager.Configuration = config;
+
+        string fileName = "./Files/DodgyTransactions2015.csv";
+        // string fileName = "./Files/DodgyTransactions2013.json";
+        // string fileName = "./Files/Transactions2013.json";
+        // string fileName = "./Files/Transactions2012.xml";
 
         string fileType = GetFileExtension(fileName);
 
