@@ -70,7 +70,8 @@ public static class Validator
         }
 
         // foreach (LineOfData line in data)
-        for(int i=1; i<data.Count; i++)
+        int startLine = dataSource == "csv" ? 1 : 0;
+        for(int i=startLine; i<data.Count; i++)
         {
             LineOfData line = data[i];
             
