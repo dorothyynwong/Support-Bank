@@ -7,12 +7,12 @@ using NLog.Targets;
 
 namespace SupportBank;
 
-public class Validator
+public static class Validator
 {
-    private CultureInfo _enGB = new CultureInfo("en-GB");
+    private static CultureInfo _enGB = new CultureInfo("en-GB");
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
-    private Boolean IsHeaderValid(LineOfData header) 
+    private static Boolean IsHeaderValid(LineOfData header) 
     {
         return header.Date == "Date" && 
                header.FromAccount == "From" &&
@@ -21,7 +21,7 @@ public class Validator
                header.Amount == "Amount";
     }
 
-    private Boolean isValidLine(LineOfData line, string dataSource)
+    private static Boolean isValidLine(LineOfData line, string dataSource)
     {
         string dateFormat = "";
         switch (dataSource)
@@ -46,12 +46,12 @@ public class Validator
         );
     }
 
-    public List<LineOfData> ValidateLines(List<LineOfData> data, string dataSource) 
+    public static List<LineOfData> ValidateLines(List<LineOfData> data, string dataSource)
     {
-        List<LineOfData> validLines = new List<LineOfData>{};
-        if (dataSource == "csv") 
+        List<LineOfData> validLines = new List<LineOfData> { };
+        if (dataSource == "csv")
         {
-            try 
+            try
             {
                 if (!IsHeaderValid(data[0]))
                 {
@@ -69,7 +69,7 @@ public class Validator
             }
         }
 
-        foreach(LineOfData line in data) 
+        foreach (LineOfData line in data)
         {
             try
             {
@@ -92,7 +92,6 @@ public class Validator
             }
         }
 
-        return validLines.Count>0 ? validLines : null;
+    return (validLines.Count > 0) ? validLines : null;
     }
-
 }

@@ -1,27 +1,27 @@
 namespace SupportBank;
 
-public class DataProcessor
+public static class DataProcessor
 {
-    private int _personCounter = 1;
-    private int _transactionCounter = 1;
+    private static int _personCounter = 1;
+    private static int _transactionCounter = 1;
 
-    private List<Person> people = new List<Person> { };
-    private List<Transaction> transactions = new List<Transaction> { };
+    private static List<Person> people = new List<Person> { };
+    private static List<Transaction> transactions = new List<Transaction> { };
 
 
-    private Person FindPerson(string personName)
+    private static Person FindPerson(string personName)
     {
         return people.Find(person => person.Name == personName);
     }
 
-    private Person CreatePerson(string personName)
+    private static Person CreatePerson(string personName)
     {
         Person person = new Person { Id = _personCounter, Name = personName };
         _personCounter++;
         return person;
     }
 
-    public (List<Person>, List<Transaction>) ProcessData(List<LineOfData> data)
+    public static (List<Person>, List<Transaction>) ProcessData(List<LineOfData> data)
     {
         if (data == null) return (null, null);
 
