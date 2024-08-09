@@ -69,8 +69,12 @@ public static class Validator
             }
         }
 
-        foreach (LineOfData line in data)
+        // foreach (LineOfData line in data)
+        int startLine = dataSource == "csv" ? 1 : 0;
+        for(int i=startLine; i<data.Count; i++)
         {
+            LineOfData line = data[i];
+            
             try
             {
                 if (isValidLine(line, dataSource))

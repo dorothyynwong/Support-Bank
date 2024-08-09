@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using NLog;
@@ -92,15 +92,7 @@ public class Program
     
     public static void Main()
     {
-        // string fileName = "./Files/DodgyTransactions2015.csv";
-        // string fileName = "./Files/DodgyTransactions2013.json";
-        string fileName = "./Files/Transactions2013.json";
-        // string fileName = "./Files/Transactions2012.xml";
-
-        
-        // string fileName = "./Files/Transactions2014.csv";
-
-        // string fileName = FileSelector.GetUserFileChoice(currentDirectory);
+        string fileName = FileSelector.GetUserFileChoice(currentDirectory);
 
         string fileType = GetFileExtension(fileName);
 
@@ -119,5 +111,6 @@ public class Program
             ReportFile reportFile = new ReportFile(processedData.Item1, processedData.Item2);
             reportFile.ExportFile("./Files/Output/Transactions2012_xml.txt");
         }
+        else Console.WriteLine("File cannot be imported");
     }
 }
