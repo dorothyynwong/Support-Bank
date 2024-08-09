@@ -11,6 +11,17 @@ public class Program
 {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
+    private static void SetupLogger()
+    {
+        string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+
+        var config = new LoggingConfiguration();
+        var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+        config.AddTarget("File Logger", target);
+        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
+        LogManager.Configuration = config;
+    }
+
     private static string GetFileExtension(string fileName)
     {
         string ext = Path.GetExtension(fileName).Replace(".", ""); 
@@ -48,46 +59,29 @@ public class Program
         while (userChoice.ToLower() != "q");
     }
 
-    // private static List<LineOfData> ImportCsvFile(string fileName)
-    // {
-    //     Logger.Info($"Importing file {fileName}");
-    //     Extractor extractor = new Extractor { FileName = fileName };
-    //     List<LineOfData> data = extractor.ExtractCsvData();
-    //     return data;
-    // }
-
-    // private static List<LineOfData> ImportJsonFile(string fileName)
-    // {
-    //     Extractor extractor = new Extractor { FileName = fileName };
-    //     List<LineOfData> data = extractor.ExtractJsonData();
-    //     return data;
-    // }
-
     private static List<LineOfData> ImportData(string fileName, string fileType)
     {
-        Extractor extractor = new Extractor { FileName = fileName };
+        IExtractor extractor;
         switch (fileType)
         {
             case "csv":
-                return extractor.ExtractCsvData();
+                extractor = new CsvExtractor();
+                break;
             case "json":
-                return extractor.ExtractJsonData();
+                extractor = new JsonExtractor();
+                break;
             case "xml":
-                return extractor.ExtractXmlData();
+                extractor = new XmlExtractor();
+                break;
             default:
                 return null;
         }
+        return extractor.ExtractData(fileName);
     }
     
     public static void Main()
     {
-        string currentDirectory = System.IO.Directory.GetCurrentDirectory();
-
-        var config = new LoggingConfiguration();
-        var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
-        config.AddTarget("File Logger", target);
-        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
-        LogManager.Configuration = config;
+        SetupLogger();
 
         // string fileName = "./Files/DodgyTransactions2015.csv";
         // string fileName = "./Files/DodgyTransactions2013.json";
@@ -96,12 +90,10 @@ public class Program
 
         string fileType = GetFileExtension(fileName);
 
-        // List<LineOfData> lines = ImportCsvFile(fileName);
         List<LineOfData> lines = ImportData(fileName, fileType);
-        Validator validator = new Validator();
-        List<LineOfData> validLines = validator.ValidateLines(lines, fileType);
-        DataProcessor dataProcessor = new DataProcessor();
-        (List<Person>, List<Transaction>) data = dataProcessor.ProcessData(validLines);
+        List<LineOfData> validLines = Validator.ValidateLines(lines, fileType);
+    
+        (List<Person>, List<Transaction>) data = DataProcessor.ProcessData(validLines);
 
         Report report = new Report(data.Item1, data.Item2);
         GetUserChoiceAndReport(report);
