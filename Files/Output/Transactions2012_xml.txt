@@ -1,21 +1,160 @@
 Name: Jon A
-Total amount lent: 2.14
-Total amount owed: 0.00
-Name: Gergana I
-Total amount lent: 0.00
-Total amount owed: 2.14
-Name: Chris W
-Total amount lent: 10.53
-Total amount owed: 0.00
-Name: Dan W
-Total amount lent: 0.00
-Total amount owed: 10.53
-Name: Todd
-Total amount lent: 9.20
-Total amount owed: 0.00
-Name: Rob S
-Total amount lent: 0.00
-Total amount owed: 8.19
+Date: 01/01/2014 | Label: Pokemon Training | To: Sarah T | Amount: 7.80
+Date: 07/02/2014 | Label: Beers | To: Sam N | Amount: 1.65
+Date: 23/03/2014 | Label: Lunch | To: Sam N | Amount: 8.49
+Date: 06/04/2014 | Label: Beers | To: Stephen S | Amount: 8.91
+Date: 03/05/2014 | Label: Rails Consultancy | To: Gergana I | Amount: 10.51
+Date: 19/05/2014 | Label: Beers | To: Todd | Amount: 9.04
+Date: 16/07/2014 | Label: Coffee | To: Dan W | Amount: 11.75
+Date: 29/07/2014 | Label: Lunch | To: Sam N | Amount: 5.31
+Date: 18/08/2014 | Label: Lego Assistance | To: Tim L | Amount: 7.22
+Date: 03/09/2014 | Label: Lunch | To: Tim L | Amount: 8.13
+Date: 20/09/2014 | Label: Beers | To: Ben B | Amount: 3.71
+Date: 24/09/2014 | Label: Golf Bets | To: Laura B | Amount: 5.61
+Date: 30/09/2014 | Label: Sandbox Help | To: Dan W | Amount: 9.26
+Date: 23/10/2014 | Label: Lunch | To: Dan W | Amount: 2.37
+Date: 11/11/2014 | Label: Stationary Items | To: Ben B | Amount: 0.73
+Date: 02/12/2014 | Label: Pokemon Training | To: Sam N | Amount: 11.04
+Date: 09/12/2014 | Label: Pokemon Training | To: Chris W | Amount: 2.26
 Name: Sarah T
-Total amount lent: 0.00
-Total amount owed: 1.01
+Date: 18/02/2014 | Label: Spline Reticulation | To: Sam N | Amount: 1.60
+Date: 14/03/2014 | Label: Spline Reticulation | To: Ben B | Amount: 2.10
+Date: 17/03/2014 | Label: Beers | To: Stephen S | Amount: 0.66
+Date: 09/06/2014 | Label: Lego Assistance | To: Stephen S | Amount: 11.50
+Date: 28/06/2014 | Label: Beers | To: Gergana I | Amount: 4.03
+Date: 22/07/2014 | Label: Coffee | To: Ben B | Amount: 11.56
+Date: 13/08/2014 | Label: Beers | To: Todd | Amount: 8.25
+Date: 27/09/2014 | Label: Beers | To: Dan W | Amount: 11.60
+Date: 06/10/2014 | Label: Spline Reticulation | To: Tim L | Amount: 7.44
+Date: 02/11/2014 | Label: Lego Assistance | To: Tim L | Amount: 4.67
+Name: Stephen S
+Date: 04/01/2014 | Label: Lunch | To: Tim L | Amount: 4.37
+Date: 14/01/2014 | Label: Beers | To: Ben B | Amount: 7.36
+Date: 19/01/2014 | Label: Beers | To: Gergana I | Amount: 5.88
+Date: 15/02/2014 | Label: Rails Consultancy | To: Gergana I | Amount: 6.91
+Date: 01/03/2014 | Label: Coffee | To: Jon A | Amount: 8.75
+Date: 08/04/2014 | Label: Lego Assistance | To: Sam N | Amount: 2.96
+Date: 23/04/2014 | Label: Poker Winnings | To: Rob S | Amount: 3.41
+Date: 11/06/2014 | Label: Lego Assistance | To: Sam N | Amount: 5.14
+Date: 16/06/2014 | Label: Lunch | To: Dan W | Amount: 4.79
+Date: 23/06/2014 | Label: Spline Reticulation | To: Ben B | Amount: 11.85
+Date: 02/07/2014 | Label: Lego Assistance | To: Dan W | Amount: 2.90
+Date: 11/08/2014 | Label: Lunch | To: Rob S | Amount: 8.91
+Name: Tim L
+Date: 22/02/2014 | Label: Pokemon Training | To: Sam N | Amount: 5.20
+Date: 20/03/2014 | Label: Lego Assistance | To: Sarah T | Amount: 2.28
+Date: 24/04/2014 | Label: Misc Morale | To: Dan W | Amount: 6.38
+Date: 06/05/2014 | Label: Audit and Other Financial Services | To: Chris W | Amount: 7.45
+Date: 13/05/2014 | Label: Coffee | To: Ben B | Amount: 5.89
+Date: 22/05/2014 | Label: Coffee | To: Todd | Amount: 3.81
+Date: 31/05/2014 | Label: Coffee | To: Ben B | Amount: 8.23
+Date: 01/06/2014 | Label: Rails Consultancy | To: Stephen S | Amount: 5.20
+Date: 22/06/2014 | Label: Coffee | To: Stephen S | Amount: 6.44
+Date: 08/08/2014 | Label: Coffee | To: Laura B | Amount: 3.76
+Date: 28/11/2014 | Label: Beers | To: Dan W | Amount: 8.76
+Name: Laura B
+Date: 08/01/2014 | Label: Lunch | To: Stephen S | Amount: 5.09
+Date: 24/01/2014 | Label: Coffee | To: Sam N | Amount: 11.68
+Date: 14/02/2014 | Label: Snooker Night | To: Stephen S | Amount: 10.78
+Date: 30/04/2014 | Label: Golf Bets | To: Ben B | Amount: 5.77
+Date: 10/05/2014 | Label: Lego Assistance | To: Todd | Amount: 10.63
+Date: 30/05/2014 | Label: Lunch | To: Todd | Amount: 7.01
+Date: 25/07/2014 | Label: Poker Winnings | To: Stephen S | Amount: 9.42
+Date: 03/08/2014 | Label: Rails Consultancy | To: Rob S | Amount: 6.26
+Date: 24/08/2014 | Label: Audit and Other Financial Services | To: Stephen S | Amount: 7.45
+Date: 28/08/2014 | Label: Beers | To: Tim L | Amount: 0.57
+Date: 12/09/2014 | Label: Git-Fu Rendered | To: Jon A | Amount: 3.11
+Date: 25/10/2014 | Label: Beers | To: Todd | Amount: 8.42
+Date: 19/11/2014 | Label: Coffee | To: Jon A | Amount: 2.61
+Name: Rob S
+Date: 11/01/2014 | Label: Misc Morale | To: Ben B | Amount: 7.80
+Date: 22/03/2014 | Label: Misc Morale | To: Tim L | Amount: 1.95
+Date: 15/04/2014 | Label: Snooker Night | To: Sam N | Amount: 8.86
+Date: 17/05/2014 | Label: Misc Morale | To: Sarah T | Amount: 3.61
+Date: 01/07/2014 | Label: Lunch | To: Jon A | Amount: 2.67
+Date: 23/07/2014 | Label: Lego Assistance | To: Tim L | Amount: 11.47
+Date: 07/11/2014 | Label: Rails Consultancy | To: Ben B | Amount: 3.00
+Date: 20/12/2014 | Label: Lunch | To: Gergana I | Amount: 1.07
+Name: Ben B
+Date: 27/02/2014 | Label: Snooker Night | To: Rob S | Amount: 8.41
+Date: 27/03/2014 | Label: Misc Morale | To: Sam N | Amount: 10.76
+Date: 09/04/2014 | Label: Coffee | To: Rob S | Amount: 1.31
+Date: 19/04/2014 | Label: Lunch | To: Gergana I | Amount: 7.61
+Date: 26/05/2014 | Label: Lunch | To: Laura B | Amount: 7.36
+Date: 20/06/2014 | Label: Rails Consultancy | To: Chris W | Amount: 1.34
+Date: 21/08/2014 | Label: Rails Consultancy | To: Gergana I | Amount: 9.25
+Date: 23/08/2014 | Label: Lunch | To: Stephen S | Amount: 5.02
+Date: 29/08/2014 | Label: Lunch | To: Chris W | Amount: 1.66
+Date: 29/09/2014 | Label: Misc Morale | To: Tim L | Amount: 3.43
+Date: 04/10/2014 | Label: Lunch | To: Todd | Amount: 11.28
+Date: 10/10/2014 | Label: Beers | To: Gergana I | Amount: 3.98
+Date: 14/10/2014 | Label: Coffee | To: Gergana I | Amount: 11.65
+Date: 28/12/2014 | Label: Coffee | To: Laura B | Amount: 1.44
+Date: 29/12/2014 | Label: Coffee | To: Sam N | Amount: 5.26
+Name: Sam N
+Date: 15/01/2014 | Label: Spline Reticulation | To: Stephen S | Amount: 11.63
+Date: 20/01/2014 | Label: Beers | To: Stephen S | Amount: 8.20
+Date: 31/01/2014 | Label: Services Rendered | To: Gergana I | Amount: 6.29
+Date: 03/03/2014 | Label: Lunch | To: Gergana I | Amount: 8.76
+Date: 01/04/2014 | Label: Lunch | To: Laura B | Amount: 2.87
+Date: 24/05/2014 | Label: Sandcastle Help | To: Tim L | Amount: 8.80
+Date: 06/07/2014 | Label: Beers | To: Jon A | Amount: 4.37
+Date: 01/08/2014 | Label: Coffee | To: Gergana I | Amount: 2.72
+Date: 01/09/2014 | Label: Pokemon Training | To: Gergana I | Amount: 9.41
+Date: 09/11/2014 | Label: Beers | To: Laura B | Amount: 7.76
+Date: 14/11/2014 | Label: Spline Reticulation | To: Dan W | Amount: 0.80
+Date: 18/11/2014 | Label: Golf Bets | To: Chris W | Amount: 6.44
+Name: Gergana I
+Date: 14/07/2014 | Label: Coffee | To: Sam N | Amount: 10.92
+Date: 18/07/2014 | Label: Snooker Night | To: Stephen S | Amount: 11.57
+Date: 28/07/2014 | Label: Pokemon Training | To: Chris W | Amount: 2.33
+Date: 04/08/2014 | Label: Coffee | To: Ben B | Amount: 7.81
+Date: 25/08/2014 | Label: Beers | To: Stephen S | Amount: 8.57
+Date: 16/09/2014 | Label: Golf Bets | To: Rob S | Amount: 1.28
+Date: 18/10/2014 | Label: Jenkins Fees | To: Rob S | Amount: 5.47
+Date: 28/10/2014 | Label: Misc Morale | To: Dan W | Amount: 5.04
+Date: 06/12/2014 | Label: Lego Assistance | To: Rob S | Amount: 5.64
+Date: 14/12/2014 | Label: Lunch | To: Laura B | Amount: 4.26
+Date: 21/12/2014 | Label: Pokemon Training | To: Laura B | Amount: 6.86
+Name: Todd
+Date: 28/01/2014 | Label: Coffee | To: Ben B | Amount: 6.81
+Date: 01/02/2014 | Label: Snooker Night | To: Ben B | Amount: 6.87
+Date: 05/02/2014 | Label: Sandbox Help | To: Rob S | Amount: 5.62
+Date: 25/02/2014 | Label: Automated Testing Services | To: Rob S | Amount: 7.10
+Date: 07/03/2014 | Label: Pokemon Training | To: Laura B | Amount: 9.39
+Date: 10/03/2014 | Label: Sandbox Help | To: Gergana I | Amount: 1.62
+Date: 29/03/2014 | Label: Git-Fu Rendered | To: Sarah T | Amount: 5.01
+Date: 04/04/2014 | Label: Rails Consultancy | To: Ben B | Amount: 10.85
+Date: 10/04/2014 | Label: Snooker Night | To: Sarah T | Amount: 3.55
+Date: 11/04/2014 | Label: Coffee | To: Laura B | Amount: 3.72
+Date: 26/04/2014 | Label: Lunch | To: Tim L | Amount: 1.46
+Date: 14/06/2014 | Label: Lego Assistance | To: Sam N | Amount: 6.30
+Date: 09/09/2014 | Label: Audit and Other Financial Services | To: Dan W | Amount: 3.93
+Date: 23/11/2014 | Label: Beers | To: Sarah T | Amount: 2.24
+Date: 16/12/2014 | Label: Poker Winnings | To: Tim L | Amount: 7.17
+Date: 25/12/2014 | Label: Lego Assistance | To: Rob S | Amount: 1.86
+Name: Chris W
+Date: 04/02/2014 | Label: Spline Reticulation | To: Ben B | Amount: 6.03
+Date: 26/06/2014 | Label: Beers | To: Todd | Amount: 9.81
+Date: 29/06/2014 | Label: Jenkins Fees | To: Laura B | Amount: 8.70
+Date: 14/08/2014 | Label: Misc Morale | To: Tim L | Amount: 6.59
+Date: 22/08/2014 | Label: Golf Bets | To: Sam N | Amount: 1.90
+Date: 30/10/2014 | Label: Jenkins Fees | To: Gergana I | Amount: 8.90
+Date: 04/11/2014 | Label: Sandbox Help | To: Rob S | Amount: 6.15
+Date: 21/11/2014 | Label: Lego Assistance | To: Todd | Amount: 1.42
+Date: 25/11/2014 | Label: Pokemon Training | To: Rob S | Amount: 5.76
+Date: 18/12/2014 | Label: Coffee | To: Ben B | Amount: 11.17
+Name: Dan W
+Date: 10/02/2014 | Label: Lunch | To: Sam N | Amount: 0.93
+Date: 30/03/2014 | Label: Lunch | To: Laura B | Amount: 4.77
+Date: 20/04/2014 | Label: Beers | To: Gergana I | Amount: 11.92
+Date: 05/05/2014 | Label: Stationary Items | To: Sarah T | Amount: 5.06
+Date: 05/06/2014 | Label: Spline Reticulation | To: Gergana I | Amount: 5.61
+Date: 09/07/2014 | Label: Misc Morale | To: Tim L | Amount: 5.45
+Date: 11/07/2014 | Label: Misc Morale | To: Sarah T | Amount: 5.05
+Date: 06/09/2014 | Label: Lunch | To: Todd | Amount: 1.80
+Date: 19/10/2014 | Label: Automated Testing Services | To: Sam N | Amount: 8.00
+Date: 22/10/2014 | Label: Beers | To: Sam N | Amount: 0.55
+Date: 29/10/2014 | Label: Rails Consultancy | To: Ben B | Amount: 5.87
+Date: 12/12/2014 | Label: Coffee | To: Tim L | Amount: 4.50
+Date: 22/12/2014 | Label: Lunch | To: Jon A | Amount: 3.66

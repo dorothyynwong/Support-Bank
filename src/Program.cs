@@ -10,7 +10,17 @@ namespace SupportBank;
 public class Program
 {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
-    private static IFileHandler _fileHandler;
+    private static string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+    public Program()
+    {
+        // string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+
+        var config = new LoggingConfiguration();
+        var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+        config.AddTarget("File Logger", target);
+        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
+        LogManager.Configuration = config;
+    }
 
     private static string GetFileExtension(string fileName)
     {
@@ -49,49 +59,44 @@ public class Program
         while (userChoice.ToLower() != "q");
     }
 
-    private static List<LineOfData> ImportData(string fileName, string fileType)
+    private static IFileHandler GetFileHandler(string fileName, string fileType)
     {
-        // Extractor extractor = new Extractor { FileName = fileName };
-        switch (fileType)
+        IFileHandler fileHandler;
+        try
         {
-            case "csv":
-                // return extractor.ExtractCsvData();
-                _fileHandler = new CSVFileHandler();
-                break;
-            case "json":
-                // return extractor.ExtractJsonData();
-                _fileHandler = new JSONFileHandler();
-                break;
-            case "xml":
-                // return extractor.ExtractXmlData();
-                _fileHandler = new XMLFileHandler();
-                break;
-            default:
-                // return null;
-                break;
+            switch (fileType)
+            {
+                case "csv":
+                    fileHandler = new CSVFileHandler();
+                    break;
+                case "json":
+                    fileHandler= new JSONFileHandler();
+                    break;
+                case "xml":
+                    fileHandler = new XMLFileHandler();
+                    break;
+                default:
+                    throw new Exception("Invalid file extension");
+            }
+            return fileHandler;
         }
-        _fileHandler.ImportFile(fileName);
-        return _fileHandler.GetData();
+        catch (Exception e)
+        {
+            Logger.Fatal($"File doesn't have a valid extension.");
+            Console.WriteLine(e.Message);
+            return null;
+        }
     }
+
     
     public static void Main()
     {
-        string currentDirectory = System.IO.Directory.GetCurrentDirectory();
-
-        var config = new LoggingConfiguration();
-        var target = new FileTarget { FileName = @$"{currentDirectory}\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
-        config.AddTarget("File Logger", target);
-        config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
-        LogManager.Configuration = config;
-
-        string fileName = "./Files/DodgyTransactions2015.csv";
-        // string fileName = "./Files/DodgyTransactions2013.json";
-        // string fileName = "./Files/Transactions2013.json";
-        // string fileName = "./Files/Transactions2012.xml";
+        string fileName = FileSelector.GetUserFileChoice(currentDirectory);
 
         string fileType = GetFileExtension(fileName);
 
-        List<LineOfData> lines = ImportData(fileName, fileType);
+        SupportBank supportBank = new SupportBank(GetFileHandler(fileName, fileType));
+        List<LineOfData> lines = supportBank.ImportData(fileName, fileType);
 
         if (lines != null)
         {
