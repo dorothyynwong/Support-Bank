@@ -62,21 +62,31 @@ public class Program
     private static List<LineOfData> ImportData(string fileName, string fileType)
     {
         IExtractor extractor;
-        switch (fileType)
+        try
         {
-            case "csv":
-                extractor = new CsvExtractor();
-                break;
-            case "json":
-                extractor = new JsonExtractor();
-                break;
-            case "xml":
-                extractor = new XmlExtractor();
-                break;
-            default:
-                return null;
+            switch (fileType)
+            {
+                case "csv":
+                    extractor = new CsvExtractor();
+                    break;
+                case "json":
+                    extractor = new JsonExtractor();
+                    break;
+                case "xml":
+                    extractor = new XmlExtractor();
+                    break;
+                default:
+                    throw new Exception("Invalid file extension");
+                    break;
+            }
+            return extractor.ExtractData(fileName);
         }
-        return extractor.ExtractData(fileName);
+        catch (Exception e)
+        {
+            Logger.Fatal($"File doesn't have a valid extension.");
+            Console.WriteLine(e.Message);
+            return null;
+        }
     }
     
     public static void Main()
@@ -84,19 +94,25 @@ public class Program
         // string fileName = "./Files/DodgyTransactions2015.csv";
         // string fileName = "./Files/DodgyTransactions2013.json";
         // string fileName = "./Files/Transactions2013.json";
-        string fileName = "./Files/Transactions2012.xml";
+        // string fileName = "./Files/Transactions2012.xml";
+        string fileName = "./Files/hahehohoha.txt";
 
         string fileType = GetFileExtension(fileName);
 
         List<LineOfData> lines = ImportData(fileName, fileType);
-        List<LineOfData> validLines = Validator.ValidateLines(lines, fileType);
-    
-        (List<Person>, List<Transaction>) processedData = DataProcessor.ProcessData(validLines);
 
-        Report report = new Report(processedData.Item1, processedData.Item2);
-        GetUserChoiceAndReport(report);
+        if (lines != null)
+        {
+            List<LineOfData> validLines = Validator.ValidateLines(lines, fileType);
 
-        ReportFile reportFile = new ReportFile(processedData.Item1, processedData.Item2);
-        reportFile.ExportFile("./Files/Output/Transactions2012_xml.txt");
+            (List<Person>, List<Transaction>) processedData = DataProcessor.ProcessData(validLines);
+
+
+            Report report = new Report(processedData.Item1, processedData.Item2);
+            GetUserChoiceAndReport(report);
+
+            ReportFile reportFile = new ReportFile(processedData.Item1, processedData.Item2);
+            reportFile.ExportFile("./Files/Output/Transactions2012_xml.txt");
+        }
     }
 }

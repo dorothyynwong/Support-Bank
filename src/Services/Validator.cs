@@ -46,12 +46,12 @@ public static class Validator
         );
     }
 
-    public static List<LineOfData> ValidateLines(List<LineOfData> data, string dataSource) 
+    public static List<LineOfData> ValidateLines(List<LineOfData> data, string dataSource)
     {
-        List<LineOfData> validLines = new List<LineOfData>{};
-        if (dataSource == "csv") 
+        List<LineOfData> validLines = new List<LineOfData> { };
+        if (dataSource == "csv")
         {
-            try 
+            try
             {
                 if (!IsHeaderValid(data[0]))
                 {
@@ -69,7 +69,7 @@ public static class Validator
             }
         }
 
-        foreach(LineOfData line in data) 
+        foreach (LineOfData line in data)
         {
             try
             {
@@ -91,6 +91,7 @@ public static class Validator
                 Console.WriteLine(problemLine);
             }
         }
+    }
 
         return validLines.Count > 0 ? validLines : null;
     }
