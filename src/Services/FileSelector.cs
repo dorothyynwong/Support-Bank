@@ -6,7 +6,8 @@ public static class FileSelector
 {
     public static string GetUserFileChoice(string currentDirectory)
     {
-        string path = @$"{currentDirectory}\Files";
+        // string path = @$"{currentDirectory}\Files";
+        string path = "C:\\Users\\dorot\\Documents\\Study\\TechSwitch\\Support-Bank\\Files";
 
         string[] files = Directory.GetFiles(path);
 

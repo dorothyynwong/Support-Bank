@@ -11,7 +11,46 @@ public class XMLFileHandler : IFileHandler {
     public IValidator Validator { get; set; }
     public IDataProcessor DataProcessor { get; set; }
 
-    public void ImportFromStream(string FilePath){}
+    
+    public XMLFileHandler()
+    {
+        Validator = new XMLValidator();
+        DataProcessor  = new DataProcessor();
+    }
+
+    public void ImportFromStream(string FilePath)
+    {
+        using FileStream fs = File.OpenRead(FilePath);
+        XDocument xml = XDocument.Load(fs);
+        
+        foreach(var t in xml.Descendants("SupportTransaction")) 
+        {
+            DateTime date;
+            DateTime.TryParseExact((string)t.Attribute("Date"), "dd/MM/yyyy HH:mm:ss" , new CultureInfo("en-GB") , DateTimeStyles.None, out date);
+            ParsedData parsedData = new ParsedData 
+            {
+                            Date = date,
+                            Amount = double.Parse(t.Element("Value").Value),
+                            Narrative = t.Element("Description").Value,
+                            FromAccount = (string)t.Element("Parties").Element("From"),
+                            ToAccount = (string)t.Element("Parties").Element("To")
+            };
+            
+            if (parsedData != null)
+            {
+                if (Validator.isValidTransaction(parsedData))
+                {
+                    DataProcessor.CreateTransaction(parsedData);
+                }
+                else
+                {
+                    throw new Exception("Invalid Transaction");
+                }
+            }
+        }
+     
+    }
+    
 
     public void ImportFromFile(string FilePath)
     {
