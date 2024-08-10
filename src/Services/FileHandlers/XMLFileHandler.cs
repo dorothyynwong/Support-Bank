@@ -11,7 +11,9 @@ public class XMLFileHandler : IFileHandler {
     public IValidator Validator { get; set; }
     public IDataProcessor DataProcessor { get; set; }
 
-    public void ImportFile(string FilePath)
+    public void ImportFromStream(string FilePath){}
+
+    public void ImportFromFile(string FilePath)
     {
 
         var xml = XDocument.Load(FilePath);
@@ -44,5 +46,11 @@ public class XMLFileHandler : IFileHandler {
     public List<LineOfData> GetData()
     {
         return _dataList;
+    }
+
+    public (List<Transaction>, List<Person>) ProcessData(string filePath)
+    {
+        ImportFromStream(filePath);
+        return (DataProcessor.transactions, DataProcessor.people);
     }
 }

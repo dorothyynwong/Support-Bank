@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace SupportBank;
 
 public class CSVFileHandler : IFileHandler {
@@ -7,17 +9,11 @@ public class CSVFileHandler : IFileHandler {
 
     public CSVFileHandler()
     {
-        Validator = new Validator();
+        Validator = new CSVValidator();
         DataProcessor  = new DataProcessor();
     }
 
-    public CSVFileHandler(IValidator validator, IDataProcessor dataProcessor) 
-    {
-        Validator = validator;
-        DataProcessor = dataProcessor;
-    }
-
-    public void ImportFile(string FilePath)
+    public void ImportFromFile(string FilePath)
     {
         string[] lines = File.ReadAllLines(FilePath);
 
@@ -36,18 +32,51 @@ public class CSVFileHandler : IFileHandler {
         }
     }
 
-    public void ImportAsStream(string FilePath)
+    public void ImportFromStream(string FilePath)
     {
+        const string HEADER = "Date,From,To,Narrative,Amount";
         try
         {
             using (StreamReader sr = new StreamReader(FilePath))
             {
-                string line;
-                
-                line = sr.ReadLine(); //skip the header line
-                while ((line = sr.ReadLine()) != null)
+                string line = sr.ReadLine();
+
+                if (line == HEADER)
                 {
-                    // lines.Add(line);
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] data = line.Split(",");
+                        double amount;
+                        DateTime date;
+                        if (double.TryParse(data[4], out amount) && 
+                            DateTime.TryParseExact(data[0], "dd/MM/yyyy" , new CultureInfo("en-GB") , DateTimeStyles.None, out date))
+                        {
+                            ParsedData parsedData = new ParsedData
+                            {
+                                Date = date,
+                                FromAccount = data[1],
+                                ToAccount = data[2],
+                                Narrative = data[3],
+                                Amount = amount
+                            };
+                            if (Validator.isValidTransaction(parsedData))
+                            {
+                                DataProcessor.CreateTransaction(parsedData);
+                            }
+                            else
+                            {
+                                throw new Exception("Invalid Line");
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception("Invalid Amount");
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("Invalid file format.");
                 }
             }
         }
@@ -57,6 +86,12 @@ public class CSVFileHandler : IFileHandler {
             Console.WriteLine(e.Message);
         }
 
+    }
+
+    public (List<Transaction>, List<Person>) ProcessData(string filePath)
+    {
+        ImportFromStream(filePath);
+        return (DataProcessor.transactions, DataProcessor.people);
     }
 
     public List<LineOfData> GetData()

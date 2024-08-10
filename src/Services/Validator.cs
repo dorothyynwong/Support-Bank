@@ -98,4 +98,14 @@ public class Validator : IValidator
 
     return (validLines.Count > 0) ? validLines : null;
     }
+
+    
+    public List<LineOfData> ValidateData(List<LineOfData> data, string dataSource)
+    {
+        return data;
+    }
+    public bool isValidTransaction(ParsedData parsedData)
+    {
+        return true;
+    }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Transactions;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -91,26 +92,11 @@ public class Program
         string fileType = FileHelper.GetFileExtension(fileName);
 
         SupportBank supportBank = new SupportBank(GetFileHandler(fileName, fileType));
+        supportBank.ImportAndProcessData(fileName);
+        List<Transaction> transactions = supportBank.Transactions;
+        List<Person> people = supportBank.People;
+        Report report = new Report(people, transactions);
+        GetUserChoiceAndReport(report);
 
-        // Need to move these business logic to SupportBank.cs
-        List<LineOfData> lines = supportBank.ImportData(fileName, fileType);
-
-        if (lines != null)
-        {
-            Validator validator = new Validator();
-            DataProcessor dataProcessor = new DataProcessor();
-
-            List<LineOfData> validLines = validator.ValidateLines(lines, fileType);
-
-            (List<Person>, List<Transaction>) processedData = dataProcessor.ProcessData(validLines);
-
-
-            Report report = new Report(processedData.Item1, processedData.Item2);
-            GetUserChoiceAndReport(report);
-
-            ReportFile reportFile = new ReportFile(processedData.Item1, processedData.Item2);
-            reportFile.ExportFile("./Files/Output/Transactions2012_xml.txt");
-        }
-        else Console.WriteLine("File cannot be imported");
     }
 }

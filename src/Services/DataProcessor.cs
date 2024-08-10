@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace SupportBank;
 
 public class DataProcessor: IDataProcessor
@@ -12,6 +14,42 @@ public class DataProcessor: IDataProcessor
     {
         transactions = new List<Transaction>();
         people = new List<Person>();
+    }
+
+    public void CreateTransaction(ParsedData parsedData)
+    {
+        Person fromPerson = FindPerson(parsedData.FromAccount);
+            if (fromPerson == null)
+            {
+                fromPerson = CreatePerson(parsedData.FromAccount);
+                people.Add(fromPerson);
+            }
+
+            Person toPerson = FindPerson(parsedData.ToAccount);
+            if (toPerson == null)
+            {
+                toPerson = CreatePerson(parsedData.ToAccount);
+                people.Add(toPerson);
+            }
+
+            Transaction transaction = new Transaction
+            {
+                Id = _transactionCounter,
+                Date = parsedData.Date,
+                From = fromPerson,
+                To = toPerson,
+                Label = parsedData.Narrative,
+                Amount = parsedData.Amount
+            };
+
+            transactions.Add(transaction);
+
+            _transactionCounter++;
+    }
+
+    public (List<Person>, List<Transaction>) ProcessData()
+    {
+        return (people, transactions);
     }
 
     private  Person FindPerson(string personName)
@@ -45,11 +83,12 @@ public class DataProcessor: IDataProcessor
                 toPerson = CreatePerson(line.ToAccount);
                 people.Add(toPerson);
             }
-
+            DateTime date;
+            DateTime.TryParseExact(line.Date, "dd/MM/yyyy" , new CultureInfo("en-GB") , DateTimeStyles.None, out date);
             Transaction transaction = new Transaction
             {
                 Id = _transactionCounter,
-                Date = line.Date,
+                Date = date,
                 From = fromPerson,
                 To = toPerson,
                 Label = line.Narrative,

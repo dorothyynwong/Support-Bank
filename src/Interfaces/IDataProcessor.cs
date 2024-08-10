@@ -4,5 +4,6 @@ public interface IDataProcessor {
     List<Person> people{get; set;}
 
     (List<Person>, List<Transaction>) ProcessData(List<LineOfData> data);
+    void CreateTransaction(ParsedData parsedData);
 
 }
