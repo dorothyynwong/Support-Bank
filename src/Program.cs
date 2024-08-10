@@ -97,9 +97,12 @@ public class Program
 
         if (lines != null)
         {
-            List<LineOfData> validLines = Validator.ValidateLines(lines, fileType);
+            Validator validator = new Validator();
+            DataProcessor dataProcessor = new DataProcessor();
 
-            (List<Person>, List<Transaction>) processedData = DataProcessor.ProcessData(validLines);
+            List<LineOfData> validLines = validator.ValidateLines(lines, fileType);
+
+            (List<Person>, List<Transaction>) processedData = dataProcessor.ProcessData(validLines);
 
 
             Report report = new Report(processedData.Item1, processedData.Item2);

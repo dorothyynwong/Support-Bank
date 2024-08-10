@@ -8,6 +8,9 @@ public class XMLFileHandler : IFileHandler {
     private List<LineOfData> _dataList = new List<LineOfData>{};
     private CultureInfo _enGB = new CultureInfo("en-GB");
 
+    public IValidator Validator { get; set; }
+    public IDataProcessor DataProcessor { get; set; }
+
     public void ImportFile(string FilePath)
     {
 
